@@ -89,6 +89,36 @@ p.desc2 {
   margin: auto !important;
 }
 
+.avatar {
+  border-radius: 50%;
+  border: 2px solid #efefef;
+}
+
+.upload-avatar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.icon-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.upload-input{
+  opacity:0;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.zone-input{
+  min-height: 50px;
+  margin-top: 10px;
+}
+
 .contact-form {
   width: 50%;
   margin: 0 auto;
@@ -530,6 +560,7 @@ profile-pic
   padding-left: 38px;
 }
 .profile-pic .pic {
+  position: relative;
   margin-top: -56px;
   width: 150px;
   height: 50px;

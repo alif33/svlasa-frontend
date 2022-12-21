@@ -34,11 +34,11 @@ export default function ContactUs() {
   return (
     <div className="home_page">
       <Navbar />
-        <div class="contact-form mt-5">
+        <div className="contact-form mt-5">
           <form
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div class="form-group">
+            <div className="form-group">
               <input
                 {...register("name", { required: true })} 
                 type="text" 
@@ -46,7 +46,7 @@ export default function ContactUs() {
                 placeholder="Your name"
               />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <input 
                 {...register("email", { required: true })}
                 type="email" 
@@ -54,15 +54,15 @@ export default function ContactUs() {
                 placeholder="Your email-address"
               />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               {/* <label for="exampleInputPassword1">Password</label> */}
               <textarea 
                 {...register("message", { required: true })}
                 rows={4}
-                class="form-control"
+                className="form-control"
                 placeholder="Message"/>
             </div>
-            <button type="submit" class="btn btn-submit">Submit</button>
+            <button type="submit" className="btn btn-submit">Submit</button>
           </form>
         </div>
       <Footer />

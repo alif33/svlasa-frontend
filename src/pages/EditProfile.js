@@ -1,55 +1,81 @@
-import React, { useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logedIn } from "../store/user/actions";
-import { updateData } from "../__lib__/helpers/HttpService";
+import { postData, updateData } from "../__lib__/helpers/HttpService";
 import Navbar from "../components/Navbar";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const Profile = props => {
-  const [hobby, setHobby] = useState();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
-
+  const { __u__ } = user;
+  const [hobby, setHobby] = useState();
+  const [image, setImage] = useState(user?.__u__?.info?.image);
+  const dispatch = useDispatch();
   const token = user?.__u__?.token;
   let hobbiesGet = user?.__u__?.info?.hobbies;
 
   const [hobbies, setHobbies] = useState(user?.__u__?.info?.hobbies);
 
-  const [_about, setAboutMe] = useState();
+  const [_about, setAboutMe] = useState(user?.__u__?.info?._about);
 
-  const [_inspiration, setInspiration] = useState();
+  const [_inspiration, setInspiration] = useState(user?.__u__?.info?._inspiration);
   const [isReload, setIsReload] = useState(false);
 
   const navigate = useNavigate();
+
+  const ImageHandler = async file => {
+    console.log("uploading...");
+    console.log(file[0]);
+    if (file.length > 0) {
+      const formData = new FormData();
+      await formData.append("image", file[0]);
+      postData("/upload", formData)
+        .then((res) => {
+          if (res.success) {
+            console.log(res.image);
+            const { secure_url } = res.image;
+            setImage(secure_url);
+          }
+        })
+        .catch((err) => {
+          console.log("ImageHandler-formData", err);
+        });
+    }
+  };
 
   const addHobbies = (event) => {
     if (event.key === "Enter") {
       if(hobby && hobby.length>0){
         setHobbies([...hobbies, hobby]);
+        document.getElementById("Hobby").value = "";
         setHobby();
-        console.log(document.getElementById("Hobby"));
       }
     }
   };
 
   const handleHobbies = (_hobby) => {
-   const exHobbies = hobbies.filter(hobby =>hobby !== _hobby);
+   const exHobbies = hobbies.filter(
+    hobby => hobby !== _hobby);
     setHobbies(exHobbies);
   };
 
   const handleUpdate = (event) => {
     event.preventDefault();
     if (event.key !== "Enter") {
-      console.log("ddddd", event.key);
       updateData(
         "/update-profile",
-        { _about, _inspiration, hobbies },
+        {
+          image,
+          _about, 
+          _inspiration, 
+          hobbies
+        },
         token
       ).then((res) => {
         if (res?.success) {
           const { token, info } = res;
+          console.log(res, "ALLOW");
           dispatch(
             logedIn({
               token,
@@ -70,7 +96,7 @@ const Profile = props => {
           <div className="container-fluid2">
             <div className="row">
               <div className="col-md-12">
-                <img src="/img/profile-bg.png" alt="" />
+                <img src="/img/profile-bg.png" alt="user profile" />
               </div>
             </div>
           </div>
@@ -82,11 +108,27 @@ const Profile = props => {
                 <div className="profile-pic">
                   <div className="pic">
                     <img
+                      className="avatar"
                       height="150"
                       width="150"
-                      src="/img/user2.png"
-                      alt=""
+                      src={image? image: "/img/avatar.jpg"}
+                      alt="avatar"
                     />
+                    <div className="upload-avatar">
+                      <div className="icon-wrapper">
+                        <input
+                          className="upload-input"
+                          type="file"
+                          onChange={(e) => ImageHandler(e.target.files)}
+                          />
+                        <img 
+                          height="30px" 
+                          width="30px" 
+                          src="/img/icon/upload.png" 
+                          alt="upload icon" 
+                        />
+                      </div>
+                    </div>
                   </div>
 
                   <div className="profile-name">
@@ -165,7 +207,7 @@ const Profile = props => {
             <div className="border my-2"></div>
             <div className="row">
               <div className="col-md-12">
-                <h1 className="text-dark">Hobbies</h1>
+                <h3 className="text-dark">Hobbies</h3>
               </div>
             </div>
             <div className="row">
@@ -176,7 +218,7 @@ const Profile = props => {
                       key={index}
                       className="mx-2 px-2 py-1 rounded bg-dark shadow-lg"
                     >
-                      <h5 className="sub-heading2 d-inline  text-light">
+                      <h6 className="sub-heading2 d-inline  text-light">
                         {hobbie}{" "}
                         <span
                           type="button"
@@ -185,12 +227,12 @@ const Profile = props => {
                         >
                           x
                         </span>
-                      </h5>
+                      </h6>
                     </div>
                   ))}
                 </span>
               </div>
-              <div className="">
+              <div className="col-md-4 mt-3">
                 <input
                   id="Hobby"
                   className="form-control py-4 fs-2"

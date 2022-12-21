@@ -8,7 +8,7 @@ const Navbar = () => {
   const { __u__, isUser } = user;
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log(user, location);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Toaster
@@ -99,7 +99,13 @@ const Navbar = () => {
                         __u__?.info?.lastName }
                       </h4>
                   </Link>
-                  <img height="62" width="62" src="/img/user.png" alt="" />
+                  <img 
+                    className="avatar"
+                    height="62" 
+                    width="62" 
+                    src={__u__?.info?.image?__u__?.info?.image: "/img/avatar.jpg"} 
+                    alt="avatar" 
+                  />
               </div>
             )
           }

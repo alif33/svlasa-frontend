@@ -38,7 +38,6 @@ const Card = ({ _id, _oid, fetchData }) => {
       })
   }
 
-  console.log(sessions);
 
   return (
     <>

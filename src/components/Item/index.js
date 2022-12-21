@@ -15,7 +15,6 @@ const Item = ({item, own, fetchData}) => {
       });
   },[socket])
 
-  console.log(item._id);
   return (
     <tr>
         <td>

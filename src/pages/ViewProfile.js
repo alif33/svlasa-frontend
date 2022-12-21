@@ -12,7 +12,6 @@ const ProfilePage = () => {
     const params = useParams();
 
     useEffect(()=>{
-        // console.log(params);
         getData(`/profile?userName=${params.userName}`)
             .then(res=>{
                 setUser(res);
@@ -46,18 +45,22 @@ const ProfilePage = () => {
           <div className="row">
             <div className="col-md-7">
               <div className="profile-pic">
-                <div className="pic">
-                  <div className="profile-img-responsive">
-                    {" "}
-                    <img
-                      height="150"
-                      width="150"
-                      src="/img/user2.png"
-                      alt=""
-                    />
+                {
+                  !loading && (
+                  <div className="pic">
+                    <div className="profile-img-responsive">
+                      {" "}
+                      <img
+                        className="avatar"
+                        height="150"
+                        width="150"
+                        src={user?.image? user.image: "/img/avatar.jpg"}
+                        alt="avatar"
+                      />
+                    </div>
                   </div>
-                </div>
-
+                  )
+                }
                 <div className="profile-name">
                   {
                     user?.firstName && user?.lastName && (

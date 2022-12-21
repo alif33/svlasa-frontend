@@ -9,19 +9,7 @@ const OwnSessions = () => {
     const { user, sessions } = useSelector(state=>state);
     const { __u__ } = user;
     const { sessionsList } = sessions;
-
-    useEffect(()=>{
-        // _getData("/own-sessions", __u__.token)
-        //     .then(res=>{
-        //         setSessions(res.sessions);
-        //     })
-        //     .catch(err=>{
-        //         console.log(err);
-        //     })
-    },[])
-
-    console.log(sessionsList, "MIL");
-
+    
     return (
         <div className="col-md-6">
         <div className="table-card mt-5">

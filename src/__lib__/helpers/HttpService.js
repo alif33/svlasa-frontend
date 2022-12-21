@@ -6,8 +6,9 @@ export const ROOT_URL = `https://oyster-app-wg4am.ondigitalocean.app/`;
 export const APP_URL = `https://oyster-app-wg4am.ondigitalocean.app/`;
 export const socket = io.connect("https://oyster-app-wg4am.ondigitalocean.app");
 
-// export const ROOT_URL = `https://svalsa.vercel.app/`;
-// export const APP_URL = `https://svalsa.vercel.app/`;
+// export const ROOT_URL = `http://localhost:4000/`;
+// export const APP_URL = `http://localhost:4000/`;
+// export const socket = io.connect("http://localhost:4000");
 
 export const API_URL = `${APP_URL}api/`;
 

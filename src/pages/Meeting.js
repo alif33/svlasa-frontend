@@ -80,7 +80,6 @@ const Meeting = ()=>{
         user.audioTrack.play();
       }
       agoraEngine.on("user-unpublished", user =>{
-          console.log(user.uid+ "has left the channel");
       });
     });
   }
@@ -156,7 +155,7 @@ const handleLeave = async()=>{
     joinCall();
     authPost(`/active?_id=${params.channel}`,{}, __u__.token)
     .then(res=>{
-      console.log(res);
+
     })
     .catch(err=>{
       console.log(err);

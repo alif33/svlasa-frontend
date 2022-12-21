@@ -43,10 +43,6 @@ const Session = () => {
   }, []);
 
 
-  const onError = (err) => {
-    console.log(err);
-  };
-
   const onSubmit = (data) => {
     if(data.comment.length > 0 && rating > 0){
       authPost(`/comment?_id=${params._id}`, {...data, rating}, __u__.token).then((res) => {

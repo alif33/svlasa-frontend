@@ -7,27 +7,26 @@ import { updateData } from "../../__lib__/helpers/HttpService";
 const Modal = ({ fetchData }) => {
 
   useEffect(()=>{
-    // console.log("New Id", _id);
+  
   }, [])
 
   const { user } = useSelector((state) => state);
   const { __u__ } = user;
 
   const handleCancel = (close) => {
-    // updateData(
-    //   `/user/session?_id=${_id_}&status=${
-    //     _id_ === __u__.info._id ? "CANCELLED" : "OPEN"
-    //   }`,
-    //   {},
-    //   __u__.token
-    // ).then((res) => {
-    //   if (res.success) {
-    //     console.log(res);
-    //     toast.success(res.message);
-    //     fetchData();
-    //     close();
-    //   }
-    // });
+    updateData(
+      `/session?_id=${_id_}&status=${
+        _id_ === __u__.info._id ? "CANCELLED" : "OPEN"
+      }`,
+      {},
+      __u__.token
+    ).then((res) => {
+      if (res.success) {
+        toast.success(res.message);
+        fetchData();
+        close();
+      }
+    });
   };
   return (
     <>

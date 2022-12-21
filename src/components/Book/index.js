@@ -8,7 +8,6 @@ const Book = ({ item, fetchData }) => {
     const { __u__ } = user;
 
     const handleBook = (_id) => {
-        console.log(__u__.info);
         updateData(
             `/session?_id=${_id}&status=BOOK&_participator=${__u__.info._id}`,
             {},

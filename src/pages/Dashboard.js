@@ -38,7 +38,6 @@ const ProfilePage = () => {
 
   const dispatch = useDispatch();
 
-  // console.log("object", user);
   const { __u__ } = user;
   const { sessionsList } = sessions;
   const {
@@ -71,13 +70,9 @@ const ProfilePage = () => {
         toast.success(`${res.message}`);
         reset();
         fetchData();
-        console.log(res);
       }
     });
   };
-  
-  console.log("sessions", sessions);
-  console.log("SES", sessionsList);
 
   return (
     <div className="profile-page">
@@ -175,7 +170,7 @@ const ProfilePage = () => {
             <h4 className="sub-heading my-2">Add a session</h4>
             <form onSubmit={handleSubmit(onSubmit, onError)}>
               <div className="row mt-2">
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <div className="form-group">
                     <label htmlFor="timeSlot">Time Slot</label>
                     <input
@@ -189,7 +184,7 @@ const ProfilePage = () => {
                     />
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <div className="form-group">
                     <label htmlFor="dateSlot">Date</label>
                     <input
@@ -201,6 +196,17 @@ const ProfilePage = () => {
                         required: "Email is required.",
                       })}
                     />
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label htmlFor="dateSlot">Time Zone</label>
+                    <select className="form-control zone-input" aria-label="Default select example">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
                   </div>
                 </div>
               </div>
