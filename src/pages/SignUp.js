@@ -82,7 +82,7 @@ const SignUp = () => {
                       required: "Email is required.",
                     })}
                   />
-                  {/* <img src="/img/icon/message.png" alt="" /> */}
+                  <img src="/img/icon/man.svg" alt="" />
                 </div>
               </div>
               <div className="sign-form-group">
@@ -96,7 +96,7 @@ const SignUp = () => {
                       required: "Email is required.",
                     })}
                   />
-                  {/* <img src="/img/icon/message.png" alt="" /> */}
+                  <img src="/img/icon/man.svg" alt="" />
                 </div>
               </div>
 

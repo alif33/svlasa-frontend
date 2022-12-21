@@ -177,7 +177,7 @@ const handleLeave = async()=>{
   return(
     <div className="video-call">
       {
-       ended && <h3 className="text-leave text-center text-danger my-4">Your partner has leave. Are you wanna <span role="button" onClick={handleLeave}>leave</span>? </h3>
+       ended && <h3 className="text-leave text-center text-danger my-4">Your partner has leave. Do you want to <span role="button" onClick={handleLeave}>end</span>the call?</h3>
       }
       {
         loading? (
@@ -215,7 +215,7 @@ const handleLeave = async()=>{
                               &times;
                           </button>
                           <h4 className="sub-heading text-center">
-                              Are you wanna leave?
+                              Do you want to end the call?
                           </h4>
                           <div className="row mt-4 pt-5">
                               <div className="col-md-6">

@@ -295,7 +295,6 @@ button.sign-btn {
 
 .remember-input .form-check {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .remember-input .form-check input {
@@ -313,7 +312,7 @@ button.sign-btn {
   font-size: 20px;
   line-height: 27px;
   color: #aaa3ca;
-  margin-left: 10px;
+  margin-left: 28px;
 }
 .remember-input a {
   font-family: "Nunito Sans";

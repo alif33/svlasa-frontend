@@ -59,11 +59,19 @@ const ProfilePage = () => {
                 </div>
 
                 <div className="profile-name">
-                  <h4 className="sub-heading mt-2 profile-name-mobile">
-                    {" "}
-                    {user?.firstName + " " + user?.lastName}
-                  </h4>
-                  <p className="desc2 mt-2"> {user?.email}</p>
+                  {
+                    user?.firstName && user?.lastName && (
+                      <h4 className="sub-heading mt-2 profile-name-mobile">
+                        {" "}
+                        {user?.firstName + " " + user?.lastName}
+                      </h4>
+                    )
+                  }
+                  
+                  {
+                    user?.email && <p className="desc2 mt-2"> {user?.email}</p>
+                  }
+                  
                 </div>
               </div>
             </div>
@@ -130,7 +138,7 @@ const ProfilePage = () => {
                 {user.hobbies.map((hobbie, index) => {
                   return (
                     <div key={index} className="col-md-1">
-                      <h5 className="sub-heading2 ">{hobbie}</h5>
+                      <h5 className="sub-heading2 ">{hobbie}{index !== user.hobbies.length-1 && ","}</h5>
                     </div>
                   );
                 })}

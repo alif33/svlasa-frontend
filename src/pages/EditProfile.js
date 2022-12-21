@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import { Toaster, toast } from "react-hot-toast";
 
 const Profile = props => {
+  const [hobby, setHobby] = useState();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
 
@@ -20,29 +21,22 @@ const Profile = props => {
 
   const [_inspiration, setInspiration] = useState();
   const [isReload, setIsReload] = useState(false);
-  // console.log("newhobbies", hobbies);
-  // console.log("hobbiesUseEffect", hobbies);
+
   const navigate = useNavigate();
 
   const addHobbies = (event) => {
     if (event.key === "Enter") {
-      setHobbies([...hobbies, event.target.value]);
+      if(hobby && hobby.length>0){
+        setHobbies([...hobbies, hobby]);
+        setHobby();
+        console.log(document.getElementById("Hobby"));
+      }
     }
-
-    // const newHobbies = event.target.value.replace(/\$+/g, " ");
-    // setHobbies(newHobbies);
   };
-  // handleHobbies
-  const handleHobbies = (index) => {
-    // console.log(index, hobbies);
-    // let rHobbies = hobbies.filter((hobbie) => hobbie === 0);
-    // let rHobbies = hobbies.pop(index);
-    let rHobbies = hobbies.slice(index, 1);
-    // rHobbies = hobbies.filter((hobbie) => hobbie !== index);
-    setHobbies(rHobbies);
 
-    // setIsReload(!isReload);
-    // console.log("rHobbies", index, rHobbies);
+  const handleHobbies = (_hobby) => {
+   const exHobbies = hobbies.filter(hobby =>hobby !== _hobby);
+    setHobbies(exHobbies);
   };
 
   const handleUpdate = (event) => {
@@ -62,18 +56,12 @@ const Profile = props => {
               info,
             })
           );
-
-          // router.push("/profile");
-
           toast.success(res.message);
         }
       });
     }
-    console.log(_about, _inspiration);
   };
 
-
-  console.log(props);
   return (
     <>
       <div className="profile-page">
@@ -193,7 +181,7 @@ const Profile = props => {
                         <span
                           type="button"
                           className="border-0 ps-2 text-secondary "
-                          onClick={() => handleHobbies(index)}
+                          onClick={() => handleHobbies(hobbie)}
                         >
                           x
                         </span>
@@ -204,12 +192,13 @@ const Profile = props => {
               </div>
               <div className="">
                 <input
-                  id="aboutMe"
+                  id="Hobby"
                   className="form-control py-4 fs-2"
                   rows="3"
                   type="text"
                   name="hobbies"
-                  // defaultValue={user?.__u__?.info?._inspiration}
+                  value={hobby}
+                  onChange={e=>setHobby(e.target.value)}
                   onKeyDown={addHobbies}
                 ></input>
               </div>
