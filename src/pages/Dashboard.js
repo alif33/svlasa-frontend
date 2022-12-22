@@ -32,13 +32,6 @@ const override = {
 };
 
 const ProfilePage = () => {
-  const [loading, setLoading] = useState(false);
-  const [disable, setDisabled] = useState();
-  const { user, sessions } = useSelector((state) => state);
-  const { __u__ } = user;
-  const { sessionsList } = sessions;
-  const dispatch = useDispatch();
-
   const {
     register,
     reset,
@@ -46,6 +39,15 @@ const ProfilePage = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisabled] = useState();
+  const { user, sessions } = useSelector((state) => state);
+  const { __u__ } = user;
+  const { sessionsList } = sessions;
+  const dispatch = useDispatch();
+  setValue("timezone", __u__?.info.timezone);
+
 
   const fetchData = () => {
     _getData("/sessions", __u__.token)
@@ -56,7 +58,6 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetchData();
-    setValue("timezone", __u__?.info.timezone);
   }, []);
 
 
