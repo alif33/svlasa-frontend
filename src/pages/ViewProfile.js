@@ -81,7 +81,9 @@ const ProfilePage = () => {
             <div className="col-md-5">
               <div className="text-end">
                 <h4 className="sub-heading mt-2">Sessions Completed: 20</h4>
-                <p className="desc2 mt-2">
+                {
+                  user?.timezone && (
+                    <p className="desc2 mt-2">
                   {" "}
                   <img
                     height="15"
@@ -89,8 +91,11 @@ const ProfilePage = () => {
                     src="/img/icon/clock.png"
                     alt=""
                   />{" "}
-                  Time Zone +05:30 IST
+                  Time Zone: {user?.timezone}
                 </p>
+                  )
+                }
+                
               </div>
             </div>
           </div>

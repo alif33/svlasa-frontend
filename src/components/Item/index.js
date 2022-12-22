@@ -19,7 +19,7 @@ const Item = ({item, own, fetchData}) => {
     <tr>
         <td>
             <h5>{moment(item._date).format("llll").split("12")[0]}</h5>
-            <h5>{moment(item._time, ["hh:mm A"]).format("hh:mm A")} IST </h5>
+            <h5>{moment(item._time, ["hh:mm A"]).format("hh:mm A")} {item?.timezone && "|"} {item.timezone} </h5>
         </td>
         <td>
             <h5>

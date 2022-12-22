@@ -12,11 +12,10 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
 import Session from "./pages/Session";
+import Auth from "./auth/Auth";
 
 function App() {
   return (
-
-    // appId}/${channel}/${token
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -24,11 +23,34 @@ function App() {
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/update-password/:token" element={<UpdatePassword />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route 
+        path="/dashboard" 
+        element={
+          <Auth>
+            <Dashboard />
+          </Auth>
+        } 
+      />
       <Route path="/profile/:userName" element={<ViewProfile />} />
-      <Route path="/update-profile" element={<EditProfile />} />
-      <Route path="/meeting/:channel" element={<Meeting />} />
-      <Route path="/session/:_id" element={<Session />} />
+      <Route 
+        path="/update-profile" 
+        element={
+          <Auth>
+            <EditProfile />
+          </Auth>
+        }/>
+      <Route 
+        path="/meeting/:channel" 
+        element={
+          <Auth>
+            <Meeting />
+          </Auth>
+        } />
+      <Route path="/session/:_id" element={
+        <Auth>
+          <Session />
+        </Auth>
+      } />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="*" element={<NotFound />} />

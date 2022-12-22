@@ -35,15 +35,15 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [disable, setDisabled] = useState();
   const { user, sessions } = useSelector((state) => state);
-
-  const dispatch = useDispatch();
-
   const { __u__ } = user;
   const { sessionsList } = sessions;
+  const dispatch = useDispatch();
+
   const {
     register,
     reset,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -56,6 +56,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetchData();
+    setValue("timezone", __u__?.info.timezone);
   }, []);
 
 
@@ -200,13 +201,16 @@ const ProfilePage = () => {
                 </div>
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label htmlFor="dateSlot">Time Zone</label>
-                    <select className="form-control zone-input" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
+                    <label htmlFor="timezone">Time Zone</label>
+                    <input
+                      id="timezone"
+                      type="text"
+                      className="form-control"
+                      placeholder="UTC"
+                      {...register("timezone", {
+                        required: "Email is required.",
+                      })}
+                    />
                   </div>
                 </div>
               </div>

@@ -7,7 +7,8 @@ import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
 
 const Profile = props => {
-  const { user } = useSelector((state) => state);
+  const { user, sessions } = useSelector((state) => state);
+  const { sessionsList } = sessions;
   const { __u__ } = user;
   const [hobby, setHobby] = useState();
   const [image, setImage] = useState(user?.__u__?.info?.image);
@@ -15,17 +16,17 @@ const Profile = props => {
   const token = user?.__u__?.token;
   let hobbiesGet = user?.__u__?.info?.hobbies;
 
+  const [firstName, setFirstName] = useState(user?.__u__?.info?.firstName);
+  const [lastName, setLastName] = useState(user?.__u__?.info?.lastName);
+  const [timezone, setTimeZone] = useState(user?.__u__?.info?.timezone);
   const [hobbies, setHobbies] = useState(user?.__u__?.info?.hobbies);
-
   const [_about, setAboutMe] = useState(user?.__u__?.info?._about);
-
   const [_inspiration, setInspiration] = useState(user?.__u__?.info?._inspiration);
   const [isReload, setIsReload] = useState(false);
 
   const navigate = useNavigate();
 
   const ImageHandler = async file => {
-    console.log("uploading...");
     console.log(file[0]);
     if (file.length > 0) {
       const formData = new FormData();
@@ -66,6 +67,9 @@ const Profile = props => {
       updateData(
         "/update-profile",
         {
+          firstName,
+          lastName,
+          timezone,
           image,
           _about, 
           _inspiration, 
@@ -152,17 +156,26 @@ const Profile = props => {
               </div>
               <div className="col-md-5">
                 <div className="text-end">
-                  <h4 className="sub-heading mt-2">Sessions Completed: 20</h4>
-                  <p className="desc2 mt-2">
-                    {" "}
-                    <img
-                      height="15"
-                      width="16.67"
-                      src="/img/icon/clock.png"
-                      alt=""
-                    />{" "}
-                    Time Zone +05:30 IST
-                  </p>
+                  {
+                      sessionsList && sessionsList?.completedSessions && (
+                        <h4 className="sub-heading mt-2">Sessions Completed: {sessionsList && sessionsList.completedSessions.length}</h4>
+                      )
+                  }
+       
+                  {
+                    timezone && (
+                      <p className="desc2 mt-2">
+                        {" "}
+                        <img
+                          height="15"
+                          width="16.67"
+                          src="/img/icon/clock.png"
+                          alt=""
+                        />{" "}
+                        Time Zone: {timezone}
+                      </p>
+                    )
+                  }
                 </div>
               </div>
             </div>
@@ -171,6 +184,53 @@ const Profile = props => {
         {/* <form> */}
         <div className="about-section">
           <div className="container-fluid2">
+            <div className="row">
+              <div className="col-md-4">
+                <div className="form-group">
+                  <label className="desc2" htmlFor="firstName">
+                    First Name
+                  </label>
+                  <input
+                    id="firstName"
+                    className="form-control py-4 fs-2"
+                    type="text"
+                    name="firstName"
+                    defaultValue={firstName}
+                    onChange={e=>setFirstName(e.target.value)}
+                />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="form-group">
+                  <label className="desc2" htmlFor="lastName">
+                    Last Name
+                  </label>
+                  <input
+                    id="lastName"
+                    className="form-control py-4 fs-2"
+                    type="text"
+                    name="lastName"
+                    defaultValue={lastName}
+                    onChange={e=>setLastName(e.target.value)}
+                />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="form-group">
+                  <label className="desc2" htmlFor="timezone">
+                    Time Zone
+                  </label>
+                  <input
+                    id="timezone"
+                    className="form-control py-4 fs-2"
+                    type="text"
+                    name="timezone"
+                    defaultValue={timezone}
+                    onChange={e=>setTimeZone(e.target.value)}
+                />
+                </div>
+              </div>
+            </div>
             <div className="row">
               <div className="col-md-12">
                 <div className="form-group">
@@ -181,7 +241,7 @@ const Profile = props => {
                     id="aboutMe"
                     className="form-control"
                     rows="3"
-                    defaultValue={user?.__u__?.info?._about}
+                    defaultValue={_about}
                     onChange={(e) => setAboutMe(e.target.value)}
                   ></textarea>
                 </div>
@@ -198,7 +258,7 @@ const Profile = props => {
                     id="aboutMe"
                     className="form-control"
                     rows="3"
-                    defaultValue={user?.__u__?.info?._inspiration}
+                    defaultValue={_inspiration}
                     onChange={(e) => setInspiration(e.target.value)}
                   ></textarea>
                 </div>

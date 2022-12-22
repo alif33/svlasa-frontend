@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logOut } from "../../store/user/actions";
 
 const Navbar = () => {
@@ -8,6 +8,7 @@ const Navbar = () => {
   const { __u__, isUser } = user;
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -113,7 +114,8 @@ const Navbar = () => {
             <>{ isUser? (
               <div className="navbar-btn">
               <Link onClick={()=>{
-                dispatch(logOut())
+                dispatch(logOut());
+                navigate("/");
               }} to="#">
                 Log out
               </Link>

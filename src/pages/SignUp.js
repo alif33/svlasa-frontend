@@ -35,8 +35,6 @@ const SignUp = () => {
     })
   };
 
-  console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-
   return (
     <>
       <div className="sign-up-main-section">
@@ -97,6 +95,21 @@ const SignUp = () => {
                     })}
                   />
                   <img src="/img/icon/man.svg" alt="" />
+                </div>
+              </div>
+
+              <div className="sign-form-group">
+                <label htmlFor="timezone">Time Zone</label>
+                <div className="with-icon-input">
+                  <input
+                    id="timezone"
+                    type="text"
+                    placeholder="GMT"
+                    {...register("timezone", {
+                      required: "Time Zone is required.",
+                    })}
+                  />
+                  <img src="/img/icon/clock.png" alt="" />
                 </div>
               </div>
 
